@@ -32,6 +32,8 @@ Self-hosted Webiny is a Node process. You give it a SQL database and a place to 
 
 **Built-in auth instead of Cognito.** Users live in your database, with passwords hashed using scrypt and a per-user salt. Password reset goes over email once you've configured a mail provider, and because plenty of fresh installs haven't, there's a fallback for whoever owns the machine so you can't lock yourself out on day one. It's gated behind a signing secret and you can switch it off in the config.
 
+Built-in auth is the default, not the only option. Okta, Auth0 and the other SSO providers Webiny already supports plug into the self-hosted version the same way they do on AWS, so a company that authenticates everything through one identity provider doesn't have to make an exception for the CMS.
+
 **The filesystem instead of S3.** File Manager writes where you tell it to.
 
 **Everything else in the same process.** Background tasks, scheduled jobs and websockets used to be Step Functions, EventBridge and API Gateway. Self-hosted runs all three itself, with the same task definitions and the same behaviour.
@@ -53,10 +55,10 @@ npx create-webiny-project@6.6.0-alpha.0 my-webiny-project
 Pick the self-hosted option when it asks, then SQLite or Postgres. One command starts the whole thing:
 
 ```bash
-yarn webiny-server watch
+yarn webiny watch
 ```
 
-![Starting a self-hosted Webiny project with yarn webiny-server watch](self-hosted-webiny/webiny-server-watch.png)
+![Starting a self-hosted Webiny project with yarn webiny watch](self-hosted-webiny/webiny-watch.png)
 
 The API is on 3002 and the admin app on 3001, where an install wizard creates your first admin user. With SQLite there's no database to provision first, so an empty folder to a running CMS you're logged into takes about as long as the install itself. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
