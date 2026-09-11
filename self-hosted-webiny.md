@@ -64,6 +64,8 @@ yarn webiny watch
 
 The API is on 3002 and the admin app on 3001, where an install wizard creates your first admin user. With SQLite there's no database to provision first, so an empty folder to a running CMS you're logged into takes about as long as the install itself. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
+Worth pointing out what just didn't happen there. On AWS you can run the admin app on your machine, but the backend has to be deployed for it to have anything to talk to, so getting started means an AWS account and a deployment before you write a line of code. Self-hosted runs the whole thing on your laptop, API included. Nothing to deploy, nothing to wait for.
+
 ## This isn't a fork
 
 The part we care most about getting across: these aren't two products, and self-hosted isn't a stripped-down edition for people who couldn't afford the real one.
@@ -82,18 +84,12 @@ Our honest take:
 
 **If you want to own the whole stack**, you can. Your database, your servers, your rules about who gets to touch them, and your deployment pipeline rather than ours.
 
-## Where this goes next
+## What's next
 
-The obvious benefit is the one in the title. The less obvious one is that local development got much better for everybody, including people who will only ever deploy to AWS. Running Webiny on your laptop used to be a special mode that approximated production. Now it's the same code with SQLite behind it, starting in seconds.
-
-The same goes for our own test suite, which no longer needs real cloud infrastructure to tell us whether something works. Faster tests mean we ship faster, and that lands on both editions at once.
-
-As for what's next, getting out of alpha is the job. OpenSearch support, deployment guides, Docker and Kubernetes setups, and the rough edges you find in week one. The first few months of real installs will teach us things we can't learn any other way, which is most of the reason this post exists.
+Getting out of alpha is the job. OpenSearch support, deployment guides, Docker and Kubernetes setups, and the rough edges you find in week one. The first few months of real installs will teach us things we can't learn any other way, which is most of the reason this post exists.
 
 ## Wrapping up
 
 This took a lot longer than we hoped, and we're glad we didn't rush it. Webiny being serverless-only was a real limitation for a lot of teams, and now it isn't.
 
 If you've been waiting on this to give Webiny a try, we'd genuinely like to hear how it goes, including the parts that annoy you. Early feedback on this is worth more to us than almost anything else right now.
-
-Thanks for reading! My name is Adrian and I work as a full stack developer at Webiny. In my spare time, I like to write about my experiences with modern web development tools and frameworks, hoping it might help other developers. If you have any questions, comments, or just want to say hi, feel free to reach out!
