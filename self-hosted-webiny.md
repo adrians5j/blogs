@@ -68,7 +68,7 @@ The part we care most about getting across: these aren't two products, and self-
 
 There's one Webiny. What differs is the layer at the bottom that talks to infrastructure, and that layer is thin. There is no feature gap between the two, in either direction. Nothing was cut to make self-hosted work, and nothing is waiting on a catch-up release. When we ship something new to the Headless CMS, it lands on both.
 
-The AWS version is not deprecated, not legacy, and not going anywhere. It's still what we'd recommend to most people starting fresh.
+The AWS version is not deprecated, not legacy, and not going anywhere. There's no house preference between the two either. What we recommend depends on what you're building and where you're allowed to run it.
 
 ## So which one should you use?
 
