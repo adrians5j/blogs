@@ -58,7 +58,7 @@ Pick the self-hosted option when it asks, then SQLite or Postgres. One command s
 yarn webiny watch
 ```
 
-![Starting a self-hosted Webiny project with yarn webiny watch](self-hosted-webiny/webiny-watch.png)
+![Starting a self-hosted Webiny project with yarn webiny watch](./self-hosted-webiny/webiny-watch.png)
 
 The API is on 3002 and the admin app on 3001, where an install wizard creates your first admin user. With SQLite there's no database to provision first, so an empty folder to a running CMS you're logged into takes about as long as the install itself. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
