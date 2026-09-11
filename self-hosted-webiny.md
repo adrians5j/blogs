@@ -24,6 +24,8 @@ Webiny can now be self-hosted. A server you own, a cluster you already operate, 
 
 It's an alpha release. The core is in place and it runs, and we'd rather get it onto real infrastructure now than keep polishing it in private.
 
+![One Webiny, two ways to run it: AWS or self-hosted, same features and same APIs, different infrastructure layer](./self-hosted-webiny/splash.png)
+
 ## What you actually run
 
 Self-hosted Webiny is a Node process. You give it a SQL database and a place to put files, and that's roughly the shape of it.
