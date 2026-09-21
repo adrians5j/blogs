@@ -20,31 +20,31 @@ Every one of these was a conversation that ended with us saying "sorry, not yet.
 
 ## So here it is
 
-Webiny can now be self-hosted. A server you own, a cluster you already operate, whichever cloud you happen to be on, or a machine under someone's desk. No AWS account anywhere in the picture. For a product that has been serverless since day one, this is the biggest change to how Webiny gets run that we've ever made.
+Webiny now has a standalone version. A server you own, a cluster you already operate, whichever cloud you happen to be on, or a machine under someone's desk. No AWS account anywhere in the picture. For a product that has been serverless since day one, this is the biggest change to how Webiny gets run that we've ever made.
 
 It's an alpha release. The core is in place and it runs, and we'd rather get it onto real infrastructure now than keep polishing it in private.
 
-![One Webiny, two ways to run it: AWS or self-hosted, same features and same APIs, different infrastructure layer](./self-hosted-webiny/splash.png)
+![One Webiny, two ways to run it: AWS or standalone, same features and same APIs, different infrastructure layer](./standalone-webiny/splash.png)
 
 ## What you actually run
 
-Self-hosted Webiny is a Node process. You give it a SQL database and a place to put files, and that's roughly the shape of it.
+Standalone Webiny is a Node process. You give it a SQL database and a place to put files, and that's roughly the shape of it.
 
 **SQL instead of DynamoDB.** Two options today, and you choose when you create the project. SQLite is a single file with nothing to operate, which also means getting Webiny running on your laptop no longer involves deploying anything to anywhere. Postgres is there when you'd rather run a real database server. OpenSearch is in progress, for the same reason the AWS version offers it, which is content sets big enough that you want a search engine behind them.
 
 **Built-in auth instead of Cognito.** Users live in your database, with passwords hashed using scrypt and a per-user salt. Password reset goes over email once you've configured a mail provider, and because plenty of fresh installs haven't, there's a fallback for whoever owns the machine so you can't lock yourself out on day one. It's gated behind a signing secret and you can switch it off in the config.
 
-Built-in auth is the default, not the only option. Okta, Auth0 and the other SSO providers Webiny already supports plug into the self-hosted version the same way they do on AWS, so a company that authenticates everything through one identity provider doesn't have to make an exception for the CMS.
+Built-in auth is the default, not the only option. Okta, Auth0 and the other SSO providers Webiny already supports plug into the standalone version the same way they do on AWS, so a company that authenticates everything through one identity provider doesn't have to make an exception for the CMS.
 
 **The filesystem instead of S3.** File Manager writes where you tell it to.
 
-**Everything else in the same process.** Background tasks, scheduled jobs and websockets used to be Step Functions, EventBridge and API Gateway. Self-hosted runs all three itself, with the same task definitions and the same behaviour.
+**Everything else in the same process.** Background tasks, scheduled jobs and websockets used to be Step Functions, EventBridge and API Gateway. Standalone runs all three itself, with the same task definitions and the same behaviour.
 
-**Your deployment tooling instead of ours.** The AWS version deploys through Pulumi. It's good, it has served us well for years, and it's still our choice landing in your repository. Plenty of organisations settled their infrastructure practice long before they found Webiny, and telling a team that runs everything through Terraform or CDK to keep one more tool around for the CMS is a real cost. A self-hosted Webiny is a Node process and a database, so you deploy it however you already deploy things. We don't need an opinion about it.
+**Your deployment tooling instead of ours.** The AWS version deploys through Pulumi. It's good, it has served us well for years, and it's still our choice landing in your repository. Plenty of organisations settled their infrastructure practice long before they found Webiny, and telling a team that runs everything through Terraform or CDK to keep one more tool around for the CMS is a real cost. A standalone Webiny is a Node process and a database, so you deploy it however you already deploy things. We don't need an opinion about it.
 
 Nothing above that layer changed. Headless CMS, Page Builder, Form Builder, ACO, audit logs, the admin app. Same features, same APIs.
 
-That last bit is worth saying slowly, because it's the part people assume can't be true. The APIs don't change. Not the GraphQL schema, not the plugin APIs, not the extension points. Whatever you built on top of Webiny on AWS, custom fields, plugins, admin UI extensions, lifecycle hooks, runs on the self-hosted version as it is. You're not porting anything.
+That last bit is worth saying slowly, because it's the part people assume can't be true. The APIs don't change. Not the GraphQL schema, not the plugin APIs, not the extension points. Whatever you built on top of Webiny on AWS, custom fields, plugins, admin UI extensions, lifecycle hooks, runs on the standalone version as it is. You're not porting anything.
 
 ## Trying it
 
@@ -54,23 +54,23 @@ Node 24 or newer, and then:
 npx create-webiny-project@6.6.0-alpha.0 my-webiny-project
 ```
 
-Pick the self-hosted option when it asks, then SQLite or Postgres. One command starts the whole thing:
+Pick the standalone option when it asks, then SQLite or Postgres. One command starts the whole thing:
 
 ```bash
 yarn webiny watch
 ```
 
-![Starting a self-hosted Webiny project with yarn webiny watch](./self-hosted-webiny/webiny-server-watch.png)
+![Starting a standalone Webiny project with yarn webiny watch](./standalone-webiny/webiny-server-watch.png)
 
 The API is on 3002 and the admin app on 3001, where an install wizard creates your first admin user. With SQLite there's no database to provision first, so an empty folder to a running CMS you're logged into takes about as long as the install itself. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
-Worth pointing out what just didn't happen there. On AWS you can run the admin app on your machine, but the backend has to be deployed for it to have anything to talk to, so getting started means an AWS account and a deployment before you write a line of code. Self-hosted runs the whole thing on your laptop, API included. Nothing to deploy, nothing to wait for.
+Worth pointing out what just didn't happen there. On AWS you can run the admin app on your machine, but the backend has to be deployed for it to have anything to talk to, so getting started means an AWS account and a deployment before you write a line of code. Standalone runs the whole thing on your laptop, API included. Nothing to deploy, nothing to wait for.
 
 ## This isn't a fork
 
-The part we care most about getting across: these aren't two products, and self-hosted isn't a stripped-down edition for people who couldn't afford the real one.
+The part we care most about getting across: these aren't two products, and standalone isn't a stripped-down edition for people who couldn't afford the real one.
 
-There's one Webiny. What differs is the layer at the bottom that talks to infrastructure, and that layer is thin. There is no feature gap between the two, in either direction. Nothing was cut to make self-hosted work, and nothing is waiting on a catch-up release. When we ship something new to the Headless CMS, it lands on both.
+There's one Webiny. What differs is the layer at the bottom that talks to infrastructure, and that layer is thin. There is no feature gap between the two, in either direction. Nothing was cut to make standalone work, and nothing is waiting on a catch-up release. When we ship something new to the Headless CMS, it lands on both.
 
 The AWS version is not deprecated, not legacy, and not going anywhere. There's no house preference between the two either. What we recommend depends on what you're building and where you're allowed to run it.
 
