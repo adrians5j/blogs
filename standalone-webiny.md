@@ -51,10 +51,10 @@ That last bit is worth saying slowly, because it's the part people assume can't 
 Node 24 or newer, and then:
 
 ```bash
-npx create-webiny-project@6.6.0-alpha.4 my-webiny-project
+npx create-webiny-project@alpha my-webiny-project
 ```
 
-It asks how you'd like to host the project, where you pick Standalone, and then which database you want, SQLite or Postgres. Once it's done installing:
+The setup wizard opens with a question it never used to ask: how would you like to host this project? Pick Standalone, then pick a database, SQLite or Postgres. Everything after that is the project scaffolding you already know.
 
 ```bash
 cd my-webiny-project
@@ -63,9 +63,9 @@ yarn dev
 
 <video src="./standalone-webiny/installation-standalone.mp4" controls muted loop playsinline></video>
 
-Webiny comes up on `http://localhost:3001`, where a wizard walks you through creating the first admin user. With SQLite there's no database to provision first, so what you see above is the whole thing, and most of it is packages installing. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
+That clip is the whole thing, and what matters is how little is in it. Under a minute from an empty folder to Webiny running at `http://localhost:3001` with the setup wizard waiting for your first admin user, most of that spent installing packages. No AWS account. No deployment. Nothing provisioned, nothing to configure, no credentials anywhere.
 
-Worth pointing out what just didn't happen there. On AWS you can run the admin app on your machine, but the backend has to be deployed for it to have anything to talk to, so getting started means an AWS account and a deployment before you write a line of code. Standalone runs the whole thing on your laptop, API included. Nothing to deploy, nothing to wait for.
+That's the part worth sitting with. On AWS you can run the admin app on your machine, but the backend has to be deployed before it has anything to talk to, so trying Webiny at all starts with an AWS account. Standalone runs the API on your laptop too. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
 ## This isn't a fork
 
