@@ -63,6 +63,8 @@ yarn dev
 
 <video src="./standalone-webiny/installation-standalone.mp4" controls muted loop playsinline></video>
 
+*The clip pins an exact version, `6.6.0-alpha.4`, which is what `@alpha` resolved to at the time.*
+
 That clip is the whole thing, and what matters is how little is in it. Under a minute from an empty folder to Webiny running at `http://localhost:3001` with the setup wizard waiting for your first admin user, most of that spent installing packages. No AWS account. No deployment. Nothing provisioned, nothing to configure, no credentials anywhere.
 
 That's the part worth sitting with. On AWS you can run the admin app on your machine, but the backend has to be deployed before it has anything to talk to, so trying Webiny at all starts with an AWS account. Standalone runs the API on your laptop too. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
