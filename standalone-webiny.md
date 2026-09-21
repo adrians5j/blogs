@@ -51,18 +51,19 @@ That last bit is worth saying slowly, because it's the part people assume can't 
 Node 24 or newer, and then:
 
 ```bash
-npx create-webiny-project@6.6.0-alpha.0 my-webiny-project
+npx create-webiny-project@6.6.0-alpha.4 my-webiny-project
 ```
 
-Pick the standalone option when it asks, then SQLite or Postgres. One command starts the whole thing:
+It asks how you'd like to host the project, where you pick Standalone, and then which database you want, SQLite or Postgres. Once it's done installing:
 
 ```bash
-yarn webiny watch
+cd my-webiny-project
+yarn dev
 ```
 
-![Starting a standalone Webiny project with yarn webiny watch](./standalone-webiny/webiny-server-watch.png)
+<video src="./standalone-webiny/installation-standalone.mp4" controls muted loop playsinline></video>
 
-The API is on 3002 and the admin app on 3001, where an install wizard creates your first admin user. With SQLite there's no database to provision first, so an empty folder to a running CMS you're logged into takes about as long as the install itself. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
+Webiny comes up on `http://localhost:3001`, where a wizard walks you through creating the first admin user. With SQLite there's no database to provision first, so what you see above is the whole thing, and most of it is packages installing. The longer walkthrough is in the [standalone quickstart](https://www.webiny.com/docs/get-started/quickstart/standalone).
 
 Worth pointing out what just didn't happen there. On AWS you can run the admin app on your machine, but the backend has to be deployed for it to have anything to talk to, so getting started means an AWS account and a deployment before you write a line of code. Standalone runs the whole thing on your laptop, API included. Nothing to deploy, nothing to wait for.
 
