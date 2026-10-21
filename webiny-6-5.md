@@ -87,7 +87,7 @@ The changelog has the full list, including one breaking change: the entry data f
 
 Part of that is the size of the release. The bigger part is that 6.5 wasn't the only thing we were building. Since the summer we've been working on 6.6 in parallel, and the first 6.6 alpha went out at the end of July.
 
-6.6 is where standalone Webiny lives. If you missed it, that's Webiny running on your own infrastructure: a Node process, a SQL database and a folder for files, with no AWS account involved. It's in alpha today, and you can try it with `npx create-webiny-project@alpha`. Beta is next, and it's close.
+6.6 is where [standalone Webiny](https://www.webiny.com/blog/webiny-is-no-longer-aws-only-introducing-standalone-webiny) lives. If you missed it, that's Webiny running on your own infrastructure: a Node process, a SQL database and a folder for files, with no AWS account involved. It's in alpha today, and you can try it with `npx create-webiny-project@alpha`. Beta is next, and it's close.
 
 Because so much of 6.6 was already done by the time 6.5 shipped, we expect it to land a lot sooner than 6.5 did. No date yet. We'd rather tell you when it's out than promise one and miss it.
 

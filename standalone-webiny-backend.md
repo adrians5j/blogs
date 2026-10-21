@@ -1,4 +1,4 @@
-Last week we [shipped standalone Webiny](./standalone-webiny.md), the version you run on your own server instead of AWS.
+Last week we [shipped standalone Webiny](https://www.webiny.com/blog/webiny-is-no-longer-aws-only-introducing-standalone-webiny), the version you run on your own server instead of AWS.
 
 From the outside that looks like a packaging job. Take the Lambda functions, run them in a Node process, point them at Postgres instead of DynamoDB, done.
 
