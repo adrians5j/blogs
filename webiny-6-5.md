@@ -29,6 +29,10 @@ Content editing is rarely a one-person job, and until now the conversation about
 
 In 6.5 you can leave comments on individual fields, including a single item inside a repeatable field. Comments stay anchored to the thing they're about, even as the content around them changes. A new notifications inbox in the admin collects comment activity and mentions, so you see what needs your attention without hunting for it.
 
+<video src="./webiny-6-5/comments-notifications.mp4" controls muted loop playsinline></video>
+
+In the video, one editor comments on the Summary field and mentions a teammate. The teammate gets a notification, and clicking it opens the entry with the comment thread in view, ready for a reply.
+
 ## Images that behave
 
 The new Asset field replaces the old "it's just a URL" file field for images. You can crop, set a focal point, and add alt text and a caption, and none of it touches the original file. The edits travel with the reference and get applied when the image is delivered, so the resulting URL works with whatever frontend you have.
