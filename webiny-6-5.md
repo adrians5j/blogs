@@ -1,4 +1,4 @@
-Webiny 6.5 is out. It took longer than we wanted, and it's also the biggest release we've shipped in a while. The changelog has close to 80 entries, and when we sat down to write this post we realised we couldn't cover all of them without it turning into a second changelog.
+Webiny 6.5 is out. It took longer than we wanted, and it's also the biggest release we've shipped in a while. The [changelog](https://www.webiny.com/docs/release-notes/6.5.0/changelog) has close to 80 entries, and when we sat down to write this post we realised we couldn't cover all of them without it turning into a second changelog.
 
 So this is the version for people who use Webiny every day. The things you'll notice, a few you'll be glad about later, and at the end a word on 6.6, which is closer than the gap between 6.4 and 6.5 might suggest.
 
@@ -79,7 +79,7 @@ Custom bulk actions are part of the public `webiny` package, run as background t
 
 And there's a long list of fixes we're happy to see gone. Publishing no longer bumps `savedOn` and `modifiedOn`, so entries stop jumping around lists sorted by date. "Load more" appends in the right order. Save errors from the API show on the field that caused them instead of disappearing. Visibility and access rules set in the model editor now apply in the entry form. Reference fields find the entry you're typing, exact matches first.
 
-The changelog has the full list.
+The [changelog](https://www.webiny.com/docs/release-notes/6.5.0/changelog) has the full list.
 
 ## Why it took a while, and why 6.6 won't
 
