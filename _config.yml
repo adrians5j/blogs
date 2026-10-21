@@ -1,20 +1,19 @@
 title: Blog drafts
 theme: jekyll-theme-primer
 
-# Notes and raw material, not posts.
+# Only the posts linked from index.md are published.
 exclude:
   - voice/
   - what-i-use-ai-for.md
+  - standalone-webiny-backend.md
+  - v5-vs-v6.md
+  - v5-vs-v6/
+  - ai-in-2026.md
+  - ai-in-2026/
 
-# Most posts start without a heading, so the page title comes from here.
+# Neither post starts with a heading, so the page title comes from here.
 defaults:
   - scope: { path: "webiny-6-5.md" }
     values: { title: "Webiny 6.5" }
   - scope: { path: "standalone-webiny.md" }
     values: { title: "Introducing standalone Webiny" }
-  - scope: { path: "standalone-webiny-backend.md" }
-    values: { title: "The backend work behind standalone Webiny" }
-  - scope: { path: "v5-vs-v6.md" }
-    values: { title: "Webiny v5 vs v6" }
-  - scope: { path: "ai-in-2026.md" }
-    values: { title: "How I work with AI in 2026" }
