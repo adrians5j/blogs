@@ -79,7 +79,7 @@ Custom bulk actions are part of the public `webiny` package, run as background t
 
 And there's a long list of fixes we're happy to see gone. Publishing no longer bumps `savedOn` and `modifiedOn`, so entries stop jumping around lists sorted by date. "Load more" appends in the right order. Save errors from the API show on the field that caused them instead of disappearing. Visibility and access rules set in the model editor now apply in the entry form. Reference fields find the entry you're typing, exact matches first.
 
-The changelog has the full list, including one breaking change: the entry data factories in `webiny/api/cms/entry` now return a `Result` instead of throwing.
+The changelog has the full list.
 
 ## Why it took a while, and why 6.6 won't
 
