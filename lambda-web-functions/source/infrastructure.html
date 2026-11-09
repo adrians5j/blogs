@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #fff; }
+  body { width: 1600px; height: 1200px; padding: 36px 44px; box-sizing: border-box;
+         font-family: Inter, system-ui, sans-serif; }
+  .frame { border: 1px solid #e8e8e8; height: 100%; display: grid; grid-template-rows: 80px auto 1fr 56px; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 0 36px;
+         border-bottom: 1px solid #e8e8e8; }
+  .top .tag { font-size: 14px; font-weight: 600; color: #737373; }
+  .hero { padding: 34px 36px 30px; border-bottom: 1px solid #e8e8e8; }
+  .eyebrow { font-size: 15px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #fa5a28; }
+  h1 { font-size: 48px; font-weight: 900; letter-spacing: -2.2px; line-height: 1.05; margin: 12px 0 12px; color: #1a1a1a; }
+  .sub { font-size: 19px; color: #737373; margin: 0; }
+  .foot { border-top: 1px solid #e8e8e8; padding: 0 36px; display: flex; align-items: center;
+          font-size: 14px; color: #737373; }
+  .foot b { color: #1a1a1a; font-weight: 700; margin-right: 6px; }
+  svg text { font-family: Inter, system-ui, sans-serif; }
+  .lbl { font-size: 13px; font-weight: 600; fill: #737373; }
+  .h { font-size: 17px; font-weight: 800; fill: #1a1a1a; letter-spacing: -0.3px; }
+  .t { font-size: 13.5px; fill: #525252; }
+  .m { font-family: "JetBrains Mono", Menlo, monospace !important; font-size: 13.5px; fill: #1a1a1a; }
+  .box { fill: #fff; stroke: #d4d4d4; stroke-width: 1; }
+  .grey { fill: #f5f5f5; stroke: #e8e8e8; stroke-width: 1; }
+  .hot { fill: #fff4ef; stroke: #fa5a28; stroke-width: 2; }
+  .gone { fill: #fff; stroke: #a3a3a3; stroke-width: 1.2; stroke-dasharray: 6 5; }
+  .rule { stroke: #e8e8e8; stroke-width: 1; }
+  .arrow { stroke: #525252; stroke-width: 1.6; fill: none; marker-end: url(#a); }
+  .arrowHot { stroke: #fa5a28; stroke-width: 2.4; fill: none; marker-end: url(#ah); }
+  .dash { stroke-dasharray: 5 5; }
+  .tagtext { font-size: 11px; font-weight: 700; fill: #fff; letter-spacing: 0.6px; }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="top">
+    <img src="logo.svg" height="32" alt="Webiny">
+    <span class="tag">Engineering / AWS infrastructure</span>
+  </div>
+  <div class="hero">
+    <div class="eyebrow">Lambda web functions</div>
+    <h1>How Webiny&rsquo;s API runs on Lambda web functions</h1>
+    <p class="sub">There is no HTTP API Gateway. CloudFront calls the functions directly; everything that isn&rsquo;t HTTP stays on regular Lambda functions.</p>
+  </div>
+
+  <svg viewBox="0 0 1510 760" width="1510" height="760">
+    <defs>
+      <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#525252"/></marker>
+      <marker id="ah" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#fa5a28"/></marker>
+    </defs>
+
+    <!-- Column labels -->
+    <text x="36" y="40" class="lbl">HTTP / Clients</text>
+    <text x="270" y="40" class="lbl">HTTP / CloudFront (API distribution)</text>
+    <text x="700" y="40" class="lbl">HTTP / Origins</text>
+    <text x="1180" y="40" class="lbl">AWS services</text>
+
+    <!-- Clients -->
+    <rect x="36" y="150" width="190" height="96" class="box"/>
+    <text x="54" y="182" class="h">Clients</text>
+    <text x="54" y="206" class="t">Admin app</text>
+    <text x="54" y="226" class="t">Websites, SDKs, API keys</text>
+
+    <!-- Removed API Gateway -->
+    <rect x="36" y="330" width="190" height="112" class="gone"/>
+    <text x="54" y="362" class="h" fill="#737373" style="fill:#737373">HTTP API Gateway</text>
+    <text x="54" y="386" class="t">Removed. Deployed only</text>
+    <text x="54" y="406" class="t">when the web function</text>
+    <text x="54" y="426" class="t">is turned off.</text>
+
+    <!-- CloudFront -->
+    <rect x="270" y="62" width="380" height="430" class="grey"/>
+    <rect x="290" y="84" width="340" height="132" class="box"/>
+    <text x="308" y="114" class="m">/graphql   /cms*   /wb/*</text>
+    <text x="308" y="138" class="m">&lt;Api.Route&gt; paths</text>
+    <text x="308" y="172" class="t">Not cached; keyed on tenant and token.</text>
+    <text x="308" y="194" class="t">/wb/* cached as before.</text>
+
+    <rect x="290" y="232" width="340" height="80" class="box"/>
+    <text x="308" y="262" class="m">/stream/*</text>
+    <text x="308" y="290" class="t">Server-sent events, compression off.</text>
+
+    <rect x="290" y="328" width="340" height="142" class="box"/>
+    <text x="308" y="358" class="m">/files/*   /private/*</text>
+    <text x="308" y="382" class="m">everything else</text>
+    <text x="308" y="416" class="t">File delivery and image resizing.</text>
+
+    <path d="M226 198 L268 198" class="arrow"/>
+
+    <!-- Code bucket -->
+    <rect x="700" y="62" width="400" height="56" class="box"/>
+    <text x="718" y="86" class="h" style="font-size:15px">S3 code bucket, versioned</text>
+    <text x="718" y="106" class="t">Each revision pins one object version.</text>
+    <path d="M900 118 L900 138" class="arrow"/>
+
+    <!-- Web function -->
+    <rect x="700" y="140" width="400" height="156" class="hot"/>
+    <rect x="1020" y="152" width="66" height="22" fill="#fa5a28"/>
+    <text x="1034" y="167" class="tagtext">NEW</text>
+    <text x="718" y="172" class="h">Lambda web function</text>
+    <text x="718" y="198" class="t">Node HTTP server, the same API code.</text>
+    <text x="718" y="220" class="t">Up to 16 requests per environment.</text>
+    <text x="718" y="242" class="t">2 Arm64 vCPUs (Graviton), 2 GB.</text>
+    <text x="718" y="264" class="t">IAM auth; only this distribution may call it.</text>
+    <path d="M630 150 L698 200" class="arrowHot"/>
+
+    <!-- Stream function -->
+    <rect x="700" y="314" width="400" height="76" class="box"/>
+    <text x="718" y="344" class="h">graphql-stream Lambda</text>
+    <text x="718" y="368" class="t">Function URL. Unchanged.</text>
+    <path d="M630 272 L698 350" class="arrow"/>
+
+    <!-- File manager -->
+    <rect x="700" y="408" width="400" height="84" class="box"/>
+    <rect x="980" y="420" width="106" height="22" fill="#fa5a28"/>
+    <text x="992" y="435" class="tagtext">NEW: URL</text>
+    <text x="718" y="440" class="h">fm-download Lambda</text>
+    <text x="718" y="464" class="t">Function URL instead of API Gateway.</text>
+    <path d="M630 400 L698 450" class="arrow"/>
+
+    <!-- Services -->
+    <rect x="1180" y="62" width="300" height="430" class="grey"/>
+    <text x="1200" y="96" class="h">AWS services</text>
+    <text x="1200" y="128" class="t">DynamoDB</text>
+    <text x="1200" y="154" class="t">S3 file bucket</text>
+    <text x="1200" y="180" class="t">Cognito</text>
+    <text x="1200" y="206" class="t">EventBridge, EventBridge Scheduler</text>
+    <text x="1200" y="232" class="t">Step Functions</text>
+    <text x="1200" y="258" class="t">OpenSearch (optional)</text>
+    <line x1="1200" y1="282" x2="1460" y2="282" class="rule"/>
+    <text x="1200" y="308" class="lbl">VPC projects</text>
+    <text x="1200" y="332" class="t">The web function reaches the VPC</text>
+    <text x="1200" y="352" class="t">through an egress network connector</text>
+    <text x="1200" y="372" class="t">in the same subnets the other</text>
+    <text x="1200" y="392" class="t">Lambda functions use.</text>
+    <path d="M1100 218 L1178 218" class="arrowHot"/>
+    <path d="M1100 352 L1178 352" class="arrow"/>
+    <path d="M1100 450 L1178 450" class="arrow"/>
+
+    <!-- Divider -->
+    <line x1="0" y1="526" x2="1510" y2="526" class="rule"/>
+    <text x="36" y="562" class="lbl">Not HTTP / unchanged</text>
+
+    <rect x="270" y="580" width="380" height="40" class="box"/>
+    <text x="288" y="606" class="t" style="font-weight:600;fill:#1a1a1a">WebSocket API Gateway</text>
+    <rect x="270" y="628" width="380" height="40" class="box"/>
+    <text x="288" y="654" class="t" style="font-weight:600;fill:#1a1a1a">EventBridge rule, EventBridge Scheduler</text>
+    <rect x="270" y="676" width="380" height="40" class="box"/>
+    <text x="288" y="702" class="t" style="font-weight:600;fill:#1a1a1a">Step Functions</text>
+
+    <rect x="700" y="580" width="400" height="88" class="box"/>
+    <text x="718" y="610" class="h">graphql Lambda</text>
+    <text x="718" y="634" class="t">WebSockets, scheduled publishing, trash cleanup.</text>
+    <text x="718" y="654" class="t">Same code as the web function.</text>
+    <rect x="700" y="676" width="400" height="40" class="box"/>
+    <text x="718" y="702" class="t" style="font-weight:600;fill:#1a1a1a">background-task Lambda</text>
+
+    <path d="M650 600 L698 616" class="arrow"/>
+    <path d="M650 648 L698 632" class="arrow"/>
+    <path d="M650 696 L698 696" class="arrow"/>
+    <path d="M1100 624 C1150 624 1150 470 1178 470" class="arrow dash"/>
+    <path d="M1100 696 C1160 696 1160 480 1186 490" class="arrow dash"/>
+  </svg>
+
+  <div class="foot"><b>Default</b>on for new projects. <span style="font-family:'JetBrains Mono',monospace;color:#1a1a1a;margin:0 6px">&lt;Infra.Api.WebFunction enabled={false} /&gt;</span> keeps the previous setup, with API Gateway in front of the Lambda functions.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-2: #404040;
+    --muted: #737373;
+    --line: #e8e8e8;
+    --tint: #f5f5f5;
+    --orange: #fa5a28;
+    --today: #8a8a93;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #fff; }
+  body {
+    width: 1920px; height: 1080px; padding: 40px 48px;
+    font-family: Inter, system-ui, sans-serif; color: var(--ink);
+  }
+  .frame { height: 100%; border: 1px solid var(--line); display: grid;
+           grid-template-rows: 88px auto 1fr 64px; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+         border-bottom: 1px solid var(--line); }
+  .top .tag { font-size: 15px; font-weight: 600; color: var(--muted); }
+  .hero { padding: 44px 40px 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 17px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); }
+  h1 { font-size: 64px; font-weight: 900; letter-spacing: -3px; line-height: 1.02; margin: 14px 0 16px; }
+  .sub { font-size: 23px; color: var(--muted); margin: 0; max-width: 1400px; line-height: 1.45; }
+  .grid { display: grid; grid-template-columns: 1.5fr 1fr; min-height: 0; }
+  .cell { padding: 34px 40px; border-right: 1px solid var(--line); min-height: 0; }
+  .label { font-size: 15px; font-weight: 600; color: var(--muted); }
+  .cell h2 { font-size: 27px; font-weight: 800; letter-spacing: -0.8px; margin: 8px 0 18px; }
+  .legend { display: flex; gap: 28px; font-size: 16px; color: var(--ink-2); margin-bottom: 18px; }
+  .legend span { display: inline-flex; align-items: center; gap: 9px; }
+  .legend i { width: 14px; height: 14px; display: inline-block; }
+  .row { display: grid; grid-template-columns: 200px 1fr; align-items: center; margin-bottom: 13px; }
+  .row .name { font-size: 16px; font-weight: 600; }
+  .bars { display: flex; flex-direction: column; gap: 3px; }
+  .bar { height: 20px; position: relative; }
+  .bar b { position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+           font-size: 14px; font-weight: 700; color: var(--ink-2); white-space: nowrap; }
+  .axis { display: grid; grid-template-columns: 200px 1fr; font-size: 13px; color: var(--muted); }
+  .ticks { position: relative; height: 20px; border-top: 1px solid var(--line); }
+  .ticks span { position: absolute; top: 5px; transform: translateX(-50%); }
+  .stats { display: grid; grid-template-rows: 1fr 1fr 1fr; }
+  .stat { padding: 26px 40px; border-bottom: 1px solid var(--line); }
+  .stat:nth-child(2) { background: var(--tint); }
+  .stat:last-child { border-bottom: 0; }
+  .stat .value { font-size: 50px; font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin: 8px 0 6px; }
+  .stat .value em { font-style: normal; color: var(--orange); }
+  .stat .value small { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: 0; }
+  .stat p { font-size: 15.5px; color: var(--muted); margin: 0; line-height: 1.45; }
+  .foot { border-top: 1px solid var(--line); padding: 0 40px; display: flex; align-items: center;
+          font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="top">
+    <img src="logo.svg" height="34" alt="Webiny">
+    <span class="tag">Engineering / AWS infrastructure</span>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Lambda web functions</div>
+    <h1>Webiny&rsquo;s API answers 20 to 42% faster</h1>
+    <p class="sub">Measured on GraphQL reads and CMS writes, with no cold-start spikes under concurrent load. Same project, same region, both setups measured in the same run.</p>
+  </div>
+
+  <div class="grid">
+    <div class="cell">
+      <div class="label">Median latency per request (p50, ms) · lower is better</div>
+      <h2>Every operation got faster</h2>
+      <div class="legend">
+        <span><i style="background:var(--today)"></i>Today: API Gateway → Lambda</span>
+        <span><i style="background:var(--orange)"></i>New: CloudFront → Lambda web function</span>
+      </div>
+      <div id="rows"></div>
+      <div class="axis"><div></div><div class="ticks" id="ticks"></div></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">20 requests at once · slowest 10%</div>
+        <div class="value">2.3 s <small>→</small> <em>0.18 s</em></div>
+        <p>Lambda waits on cold starts, about 1.3 s each. A web function environment serves up to 16 requests at once.</p>
+      </div>
+      <div class="stat">
+        <div class="label">CMS create entry · p50</div>
+        <div class="value">125 <small>→</small> <em>73 ms</em></div>
+        <p>−42% (−41% in a second run). Update: 138 → 83 ms.</p>
+      </div>
+      <div class="stat">
+        <div class="label">Reads: roles, teams, get entry · p50</div>
+        <div class="value">~65 <small>→</small> <em>~43 ms</em></div>
+        <p>−33 to −36% (−20 to −27% in a second run).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    eu-central-1, one client location, 50 requests per operation after 5 warm-up requests. Lambda: 1 GB, x86, called on its API Gateway URL. Web function: Arm64, 2 vCPUs per environment, called through CloudFront (one more hop).
+  </div>
+</div>
+<script>
+  const data = [
+    ["{ __typename }", 63, 40],
+    ["List roles", 63, 42],
+    ["List teams", 63, 43],
+    ["Get CMS entry", 67, 43],
+    ["Create CMS entry", 125, 73],
+    ["Update CMS entry", 138, 83]
+  ];
+  const max = 160;
+  const colors = ["var(--today)", "var(--orange)"];
+  const rows = document.getElementById("rows");
+  for (const [name, ...vals] of data) {
+    const row = document.createElement("div");
+    row.className = "row";
+    const bars = vals
+      .map((v, i) => `<div class="bar" style="width:${(v / max) * 86}%;background:${colors[i]}"><b>${v}</b></div>`)
+      .join("");
+    row.innerHTML = `<div class="name">${name}</div><div class="bars">${bars}</div>`;
+    rows.appendChild(row);
+  }
+  const ticks = document.getElementById("ticks");
+  for (const t of [0, 40, 80, 120, 160]) {
+    const s = document.createElement("span");
+    s.style.left = `${(t / max) * 86}%`;
+    s.textContent = t;
+    ticks.appendChild(s);
+  }
+</script>
+</body>
+</html>
