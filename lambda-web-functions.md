@@ -82,4 +82,6 @@ We'll share more as real projects start running on this.
 
 Every request we measured got faster, bursts of traffic wait far less, and none of it changes how you write code for Webiny. Your GraphQL schema, plugins, custom routes and extensions run exactly as they do today.
 
-This isn't released yet. We expect it to be part of 6.6, possibly as early as the first 6.6 beta. We'll post updates as it gets closer. When you can try it, a second post will cover how to switch your project. After that, we'd like to hear what you see, especially if your numbers don't look like ours.
+This isn't released yet. We expect it to be part of 6.6, possibly as early as the first 6.6 beta. When you can try it, a second post will cover how to switch your project, and we'd like to hear what you see, especially if your numbers don't look like ours.
+
+Until then, watch this space. We'll post updates as it gets closer. 👀
