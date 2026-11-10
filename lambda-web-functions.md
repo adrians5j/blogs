@@ -1,22 +1,26 @@
-In October, AWS released [Lambda web functions](https://docs.aws.amazon.com/lambda/latest/dg/web-functions.html), a new kind of Lambda that runs your code as an ordinary Node HTTP server. We've spent the last few weeks moving Webiny's API onto them, and the short version is that the API got a lot faster. GraphQL requests answer 20 to 42% faster at the median, and in our tests the multi-second waits under load are gone.
+In October, AWS released [Lambda web functions](https://docs.aws.amazon.com/lambda/latest/dg/web-functions.html), a new kind of Lambda that runs your code as an ordinary Node HTTP server. We spent last week moving Webiny's API onto them, and the short version is that the API got a lot faster. GraphQL requests answer 20 to 42% faster at the median, and in our tests the multi-second waits under load are gone.
 
-The change is in review now and will ship in Webiny 6.6. This post is about what changes, the numbers we measured, and what it means for a project you already have.
+The change is in review now and will most likely ship in Webiny 6.6. This post is about what changes, the numbers we measured, and what it means for a project you already have.
 
 ## How the API runs today
 
 Every request to a Webiny API on AWS takes the same path. CloudFront receives it, hands it to API Gateway, and API Gateway invokes the `graphql` Lambda function.
 
-That setup has served us well for years, and it has two costs. API Gateway is one more hop on every request. And a regular Lambda function handles one request at a time. When ten requests arrive at once and only three copies of the function are warm, Lambda starts seven new copies, and each of those requests waits for its copy to boot. For Webiny's API that boot took about 1.3 seconds in our tests, before the request itself even started.
+That setup has served us well for years, and it has two costs. API Gateway is one more hop on every request. It's a good service if you need what it adds, like throttling, usage plans or request validation, but Webiny's API used none of that. API Gateway only passed requests on to the Lambda. And a regular Lambda function handles one request at a time. When ten requests arrive at once and only three copies of the function are warm, Lambda starts seven new copies, and each of those requests waits for its copy to boot. For Webiny's API that boot took about 1.3 seconds in our tests, before the request itself even started.
+
+Here's one request on that path, and the same request on a web function:
+
+![One request, before and after Lambda web functions](./lambda-web-functions/request-before-after.png)
 
 ## What a web function changes
 
 A web function is a Node HTTP server that Lambda runs and scales for you. One running copy, which AWS calls an environment, serves many requests at the same time, the way any web server does. We let each environment take up to 16 at once.
 
-So with a web function, the API now runs like this:
+Here's the whole API with a web function, including the parts that don't change:
 
 ![How a Webiny project's API is deployed with Lambda web functions](./lambda-web-functions/infrastructure.png)
 
-CloudFront calls the web function directly, and there's no API Gateway in between. `/graphql`, the Headless CMS APIs, the Website Builder routes and any custom routes you've added with `<Api.Route>` all go there. File delivery got the same treatment, and CloudFront now calls the file Lambda directly too.
+CloudFront calls the web function directly, and there's no API Gateway in between. `/graphql`, the Headless CMS APIs, the Website Builder routes and any custom routes you've added with `<Api.Route>` all go there. File requests lose API Gateway too. CloudFront now calls the file Lambda through its own Function URL, and the Lambda itself is unchanged.
 
 Some things don't change. Web functions only answer HTTP requests. So background tasks, scheduled publishing, the WebSocket API and the nightly trash cleanup still run on the regular `graphql` Lambda, exactly as before. It's the same code, so nothing behaves differently. They just don't receive HTTP traffic anymore.
 
@@ -106,4 +110,4 @@ We'll share more as real projects start running on this.
 
 Every request we measured got faster, bursts of traffic stopped turning into seconds-long waits, and none of it changes how you write code for Webiny. Your GraphQL schema, plugins, custom routes and extensions run exactly as they do today.
 
-This isn't released yet. It's coming in 6.6, and we may include it in the first 6.6 beta. We'll post updates as it gets closer, and once you can try it on your own project, we'd like to hear what you see, especially if your numbers don't look like ours.
+This isn't released yet. We expect it to be part of 6.6, possibly as early as the first 6.6 beta. We'll post updates as it gets closer, and once you can try it on your own project, we'd like to hear what you see, especially if your numbers don't look like ours.
