@@ -11,6 +11,7 @@ exclude:
   - ai-in-2026.md
   - ai-in-2026/
   - lambda-web-functions/source/
+  - lambda-web-functions-try-it.md
 
 # Neither post starts with a heading, so the page title comes from here.
 defaults:
@@ -19,4 +20,4 @@ defaults:
   - scope: { path: "standalone-webiny.md" }
     values: { title: "Introducing standalone Webiny" }
   - scope: { path: "lambda-web-functions.md" }
-    values: { title: "Webiny's API on AWS Lambda web functions" }
+    values: { title: "Webiny's API moves to Lambda web functions, without API Gateway" }
